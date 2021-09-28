@@ -207,6 +207,15 @@ player_data_long %>%
   geom_col() +
   labs(title = "Scores Against Opponents by Strategy",x = "Opponent",y = "Score")
 ```
+```{r}
+player_data_long %>% 
+  ggplot(aes(x = player, y = score, fill = opponent)) +
+    geom_col(position = "dodge") +
+    theme(axis.text.x = element_text(angle = 50, hjust = 1), 
+        legend.position = "none")  +
+    scale_fill_brewer(palette = "Set2") +
+    labs(x = "Strategy", y = "Score", title = "Scores Against Opponents by Strategy")
+```
 
 
 ## Question 4
