@@ -140,11 +140,19 @@ ggplot(data = p, aes(x=day_running, y = group_favorability_the_police_avg_police
   geom_smooth(method = "lm", se=FALSE) +
   geom_vline(xintercept = 0, linetype = "dashed", color="red")
 ```
+
 ```{r}
-ggplot(data = p, aes(x=day_running, y = group_fav_white_black_avg_police, shape = as.factor(before_avg_police))) +
+discrimination_df <- protest_df_bydate %>% 
+  group_by(day) %>% 
+  mutate(avg_group_fav_white_black = mean(discrimination_blacks, na.rm = "TRUE")) %>% 
+  dplyr::select(day, before, avg_group_fav_white_black) %>% 
+  unique()
+
+ggplot(discrimination_df, aes(day, avg_group_fav_white_black, shape = as.factor(before))) +
   geom_point() +
   geom_smooth(method = "lm", se=FALSE) +
-  geom_vline(xintercept = 0, linetype = "dashed", color="red")
+  geom_vline(xintercept = as.Date("2020-05-28"),linetype = "dashed", color = "red")
+
 ```
 
 ```{r}
